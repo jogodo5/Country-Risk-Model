@@ -1,1 +1,222 @@
-{}
+{
+  "US": {
+    "money_laundering": 3.2,
+    "terrorism_financing": 2.8,
+    "sanctions": 1.5,
+    "transparency": 7.2,
+    "corruption": 6.7,
+    "regulatory_compliance": 8.5,
+    "political_stability": 7.0,
+    "economic_risk": 4.2,
+    "last_updated": "2024-01-15"
+  },
+  "GB": {
+    "money_laundering": 2.9,
+    "terrorism_financing": 2.5,
+    "sanctions": 1.8,
+    "transparency": 7.8,
+    "corruption": 7.3,
+    "regulatory_compliance": 8.8,
+    "political_stability": 7.5,
+    "economic_risk": 4.0,
+    "last_updated": "2024-01-15"
+  },
+  "CN": {
+    "money_laundering": 5.5,
+    "terrorism_financing": 4.2,
+    "sanctions": 6.0,
+    "transparency": 3.5,
+    "corruption": 4.2,
+    "regulatory_compliance": 5.0,
+    "political_stability": 6.8,
+    "economic_risk": 5.5,
+    "last_updated": "2024-01-15"
+  },
+  "RU": {
+    "money_laundering": 7.2,
+    "terrorism_financing": 6.8,
+    "sanctions": 9.5,
+    "transparency": 2.8,
+    "corruption": 2.4,
+    "regulatory_compliance": 3.5,
+    "political_stability": 4.5,
+    "economic_risk": 7.8,
+    "last_updated": "2024-01-15"
+  },
+  "DE": {
+    "money_laundering": 2.5,
+    "terrorism_financing": 2.2,
+    "sanctions": 1.5,
+    "transparency": 8.1,
+    "corruption": 8.0,
+    "regulatory_compliance": 9.0,
+    "political_stability": 7.8,
+    "economic_risk": 3.5,
+    "last_updated": "2024-01-15"
+  },
+  "FR": {
+    "money_laundering": 2.8,
+    "terrorism_financing": 3.5,
+    "sanctions": 1.8,
+    "transparency": 7.5,
+    "corruption": 6.9,
+    "regulatory_compliance": 8.5,
+    "political_stability": 7.2,
+    "economic_risk": 4.0,
+    "last_updated": "2024-01-15"
+  },
+  "JP": {
+    "money_laundering": 2.3,
+    "terrorism_financing": 1.8,
+    "sanctions": 1.5,
+    "transparency": 7.3,
+    "corruption": 7.4,
+    "regulatory_compliance": 8.2,
+    "political_stability": 7.8,
+    "economic_risk": 5.0,
+    "last_updated": "2024-01-15"
+  },
+  "IN": {
+    "money_laundering": 5.2,
+    "terrorism_financing": 5.5,
+    "sanctions": 3.0,
+    "transparency": 4.1,
+    "corruption": 4.0,
+    "regulatory_compliance": 5.8,
+    "political_stability": 5.5,
+    "economic_risk": 5.5,
+    "last_updated": "2024-01-15"
+  },
+  "BR": {
+    "money_laundering": 5.8,
+    "terrorism_financing": 4.0,
+    "sanctions": 2.5,
+    "transparency": 3.8,
+    "corruption": 3.8,
+    "regulatory_compliance": 5.5,
+    "political_stability": 5.0,
+    "economic_risk": 6.2,
+    "last_updated": "2024-01-15"
+  },
+  "ZA": {
+    "money_laundering": 5.5,
+    "terrorism_financing": 4.5,
+    "sanctions": 3.0,
+    "transparency": 4.5,
+    "corruption": 4.3,
+    "regulatory_compliance": 6.0,
+    "political_stability": 5.2,
+    "economic_risk": 6.5,
+    "last_updated": "2024-01-15"
+  },
+  "AU": {
+    "money_laundering": 2.2,
+    "terrorism_financing": 2.0,
+    "sanctions": 1.5,
+    "transparency": 7.7,
+    "corruption": 7.7,
+    "regulatory_compliance": 8.5,
+    "political_stability": 8.0,
+    "economic_risk": 3.5,
+    "last_updated": "2024-01-15"
+  },
+  "CA": {
+    "money_laundering": 2.5,
+    "terrorism_financing": 2.2,
+    "sanctions": 1.5,
+    "transparency": 8.1,
+    "corruption": 7.7,
+    "regulatory_compliance": 8.7,
+    "political_stability": 8.2,
+    "economic_risk": 3.2,
+    "last_updated": "2024-01-15"
+  },
+  "MX": {
+    "money_laundering": 6.5,
+    "terrorism_financing": 5.2,
+    "sanctions": 2.8,
+    "transparency": 3.1,
+    "corruption": 3.1,
+    "regulatory_compliance": 4.5,
+    "political_stability": 4.2,
+    "economic_risk": 5.8,
+    "last_updated": "2024-01-15"
+  },
+  "CH": {
+    "money_laundering": 3.0,
+    "terrorism_financing": 2.0,
+    "sanctions": 1.8,
+    "transparency": 8.5,
+    "corruption": 8.5,
+    "regulatory_compliance": 9.2,
+    "political_stability": 8.8,
+    "economic_risk": 2.5,
+    "last_updated": "2024-01-15"
+  },
+  "SE": {
+    "money_laundering": 2.0,
+    "terrorism_financing": 1.8,
+    "sanctions": 1.5,
+    "transparency": 8.7,
+    "corruption": 8.8,
+    "regulatory_compliance": 9.0,
+    "political_stability": 8.5,
+    "economic_risk": 3.0,
+    "last_updated": "2024-01-15"
+  },
+  "NO": {
+    "money_laundering": 1.8,
+    "terrorism_financing": 1.5,
+    "sanctions": 1.5,
+    "transparency": 8.4,
+    "corruption": 8.4,
+    "regulatory_compliance": 8.8,
+    "political_stability": 8.8,
+    "economic_risk": 2.8,
+    "last_updated": "2024-01-15"
+  },
+  "SG": {
+    "money_laundering": 2.8,
+    "terrorism_financing": 2.2,
+    "sanctions": 1.8,
+    "transparency": 8.5,
+    "corruption": 8.5,
+    "regulatory_compliance": 9.0,
+    "political_stability": 8.5,
+    "economic_risk": 3.0,
+    "last_updated": "2024-01-15"
+  },
+  "KR": {
+    "money_laundering": 2.5,
+    "terrorism_financing": 2.5,
+    "sanctions": 2.0,
+    "transparency": 6.9,
+    "corruption": 6.2,
+    "regulatory_compliance": 7.8,
+    "political_stability": 7.0,
+    "economic_risk": 4.5,
+    "last_updated": "2024-01-15"
+  },
+  "AF": {
+    "money_laundering": 9.2,
+    "terrorism_financing": 9.5,
+    "sanctions": 8.5,
+    "transparency": 1.5,
+    "corruption": 1.6,
+    "regulatory_compliance": 2.0,
+    "political_stability": 1.8,
+    "economic_risk": 9.0,
+    "last_updated": "2024-01-15"
+  },
+  "IR": {
+    "money_laundering": 8.5,
+    "terrorism_financing": 8.8,
+    "sanctions": 9.8,
+    "transparency": 2.0,
+    "corruption": 2.5,
+    "regulatory_compliance": 2.5,
+    "political_stability": 3.5,
+    "economic_risk": 8.5,
+    "last_updated": "2024-01-15"
+  }
+}
