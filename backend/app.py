@@ -75,9 +75,9 @@ def get_country(country_code):
                 'error': 'Country not found'
             }), 404
         
-        # Get risk data for this country
+        # Get risk data for this country (always use alpha2 code)
         risk_data = load_risk_data()
-        country_risk = risk_data.get(country_code, {})
+        country_risk = risk_data.get(country['alpha2'], {})
         
         return jsonify({
             'success': True,
@@ -153,14 +153,31 @@ def get_risk_categories():
 def get_country_risk(country_code):
     """Get risk assessment for a specific country"""
     try:
+        countries = load_countries()
         risk_data = load_risk_data()
         country_code = country_code.upper()
         
-        if country_code not in risk_data:
+        # Find country to get alpha2 code
+        country = next(
+            (c for c in countries 
+             if c['alpha2'] == country_code or c['alpha3'] == country_code),
+            None
+        )
+        
+        if not country:
+            return jsonify({
+                'success': False,
+                'error': 'Country not found'
+            }), 404
+        
+        # Use alpha2 code for risk data lookup
+        alpha2_code = country['alpha2']
+        
+        if alpha2_code not in risk_data:
             # Return default/placeholder data if no risk data exists
             return jsonify({
                 'success': True,
-                'country_code': country_code,
+                'country_code': alpha2_code,
                 'risk_scores': {},
                 'overall_risk': 'Not Assessed',
                 'message': 'No risk data available for this country'
@@ -168,8 +185,8 @@ def get_country_risk(country_code):
         
         return jsonify({
             'success': True,
-            'country_code': country_code,
-            'risk_assessment': risk_data[country_code]
+            'country_code': alpha2_code,
+            'risk_assessment': risk_data[alpha2_code]
         })
     except Exception as e:
         return jsonify({
@@ -181,7 +198,24 @@ def get_country_risk(country_code):
 def update_country_risk(country_code):
     """Update risk assessment for a specific country"""
     try:
+        countries = load_countries()
         country_code = country_code.upper()
+        
+        # Find country to get alpha2 code
+        country = next(
+            (c for c in countries 
+             if c['alpha2'] == country_code or c['alpha3'] == country_code),
+            None
+        )
+        
+        if not country:
+            return jsonify({
+                'success': False,
+                'error': 'Country not found'
+            }), 404
+        
+        # Use alpha2 code for risk data storage
+        alpha2_code = country['alpha2']
         risk_data = load_risk_data()
         
         # Get the request data
@@ -194,13 +228,13 @@ def update_country_risk(country_code):
             }), 400
         
         # Update risk data for this country
-        risk_data[country_code] = data
+        risk_data[alpha2_code] = data
         save_risk_data(risk_data)
         
         return jsonify({
             'success': True,
             'message': 'Risk data updated successfully',
-            'country_code': country_code
+            'country_code': alpha2_code
         })
     except Exception as e:
         return jsonify({
