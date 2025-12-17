@@ -301,4 +301,7 @@ if __name__ == '__main__':
     if not os.path.exists(risk_file):
         save_risk_data({})
     
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Debug mode should be disabled in production
+    # Set environment variable FLASK_ENV=production for production deployments
+    debug_mode = os.environ.get('FLASK_ENV') != 'production'
+    app.run(debug=debug_mode, host='0.0.0.0', port=5000)

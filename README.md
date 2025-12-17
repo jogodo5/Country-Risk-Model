@@ -134,18 +134,19 @@ The platform is designed to integrate data from:
 ### For Production Hosting
 
 1. **Set Flask to production mode**
-   ```python
-   # In backend/app.py, change:
-   app.run(debug=False, host='0.0.0.0', port=5000)
+   ```bash
+   # Set environment variable before running
+   export FLASK_ENV=production
+   cd backend
+   python app.py
    ```
-
-2. **Use a production WSGI server**
+   
+   Or use a production WSGI server (recommended):
    ```bash
    pip install gunicorn
    gunicorn -w 4 -b 0.0.0.0:5000 backend.app:app
    ```
-
-3. **Set up reverse proxy** (nginx example)
+2. **Set up reverse proxy** (nginx example)
    ```nginx
    server {
        listen 80;
