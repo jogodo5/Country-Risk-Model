@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Risk Model - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🌍 Country Risk Model</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="countries.html">Countries</a>
+                <a href="risk-factors.html">Risk Factors</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Global Country Risk Assessment Platform</h1>
+            <p class="subtitle">Comprehensive risk analysis across multiple dimensions</p>
+            <div class="hero-actions">
+                <a href="countries.html" class="btn btn-primary">Explore Countries</a>
+                <a href="risk-factors.html" class="btn btn-secondary">View Risk Factors</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="features">
+        <div class="container">
+            <h2>Risk Assessment Categories</h2>
+            <div class="feature-grid" id="riskCategories">
+                <!-- Risk categories will be loaded here -->
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Money Laundering</h3>
+                    <p>Assessment of money laundering risks and controls</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚠️</div>
+                    <h3>Terrorism Financing</h3>
+                    <p>Analysis of terrorism financing vulnerabilities</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚫</div>
+                    <h3>Sanctions & Evasion</h3>
+                    <p>International sanctions and evasion risk monitoring</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Transparency</h3>
+                    <p>Government and financial transparency metrics</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚖️</div>
+                    <h3>Corruption</h3>
+                    <p>Corruption perception and prevalence analysis</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>Regulatory Compliance</h3>
+                    <p>Adherence to international regulatory standards</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏛️</div>
+                    <h3>Political Stability</h3>
+                    <p>Political stability and governance indicators</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Economic Risk</h3>
+                    <p>Economic stability and financial health assessment</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container">
+            <h2>Platform Overview</h2>
+            <div class="stats-grid" id="statsContainer">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalCountries">-</div>
+                    <div class="stat-label">Total Countries</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="assessedCountries">-</div>
+                    <div class="stat-label">Assessed Countries</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Risk Categories</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Start Exploring Country Risks</h2>
+            <p>Access comprehensive risk assessments for countries worldwide</p>
+            <a href="countries.html" class="btn btn-large btn-primary">Browse Countries</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Country Risk Model. Data aggregated from multiple international sources.</p>
+            <p class="footer-note">Note: Risk assessments are for informational purposes only.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Load statistics
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/stats');
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('totalCountries').textContent = data.total_countries;
+                    document.getElementById('assessedCountries').textContent = data.assessed_countries;
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+        
+        // Load stats when page loads
+        document.addEventListener('DOMContentLoaded', loadStats);
+    </script>
+</body>
+</html>
