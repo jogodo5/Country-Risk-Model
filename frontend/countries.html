@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countries - Country Risk Model</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🌍 Country Risk Model</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="countries.html" class="active">Countries</a>
+                <a href="risk-factors.html">Risk Factors</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="search-section">
+        <div class="container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search countries by name or code...">
+            </div>
+        </div>
+    </section>
+
+    <section class="country-list">
+        <div class="container">
+            <div id="loadingIndicator" class="loading"></div>
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            <div id="countryGrid" class="country-grid"></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Country Risk Model. Data aggregated from multiple international sources.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        let allCountries = [];
+
+        // Load all countries
+        async function loadCountries() {
+            const loading = document.getElementById('loadingIndicator');
+            const error = document.getElementById('errorMessage');
+            const grid = document.getElementById('countryGrid');
+
+            try {
+                loading.style.display = 'block';
+                error.style.display = 'none';
+
+                const response = await fetch('/api/countries');
+                const data = await response.json();
+
+                if (data.success) {
+                    allCountries = data.countries;
+                    displayCountries(allCountries);
+                } else {
+                    throw new Error(data.error || 'Failed to load countries');
+                }
+            } catch (err) {
+                error.textContent = `Error: ${err.message}`;
+                error.style.display = 'block';
+                console.error('Error loading countries:', err);
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        // Display countries in grid
+        function displayCountries(countries) {
+            const grid = document.getElementById('countryGrid');
+            
+            if (countries.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; color: var(--secondary-color);">No countries found</p>';
+                return;
+            }
+
+            grid.innerHTML = countries.map(country => `
+                <div class="country-card" onclick="viewCountry('${country.alpha2}')">
+                    <div class="country-header">
+                        <div class="country-name">${country.name}</div>
+                        <div class="country-code">${country.alpha2}</div>
+                    </div>
+                    <div class="country-info">
+                        <p style="color: var(--secondary-color); font-size: 0.875rem;">
+                            Code: ${country.alpha3} | ${country.numeric}
+                        </p>
+                    </div>
+                    <div class="risk-indicator">
+                        <span class="risk-badge risk-not-assessed">Click to View</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                
+                if (!query) {
+                    displayCountries(allCountries);
+                    return;
+                }
+
+                const filtered = allCountries.filter(country => 
+                    country.name.toLowerCase().includes(query) ||
+                    country.alpha2.toLowerCase().includes(query) ||
+                    country.alpha3.toLowerCase().includes(query)
+                );
+
+                displayCountries(filtered);
+            });
+        }
+
+        // View country details
+        function viewCountry(countryCode) {
+            window.location.href = `country.html?code=${countryCode}`;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCountries();
+            setupSearch();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Details - Country Risk Model</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🌍 Country Risk Model</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="countries.html">Countries</a>
+                <a href="risk-factors.html">Risk Factors</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="country-detail">
+        <div class="container">
+            <div id="loadingIndicator" class="loading"></div>
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            
+            <div id="countryDetailContent" style="display: none;">
+                <div class="detail-header">
+                    <h1 id="countryName"></h1>
+                    <div class="country-codes" id="countryCodes"></div>
+                </div>
+
+                <h2 style="margin-bottom: 1.5rem;">Risk Assessment</h2>
+                <div id="riskAssessment" class="risk-scores"></div>
+
+                <div style="margin-top: 2rem;">
+                    <a href="countries.html" class="btn btn-secondary">← Back to Countries</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Country Risk Model. Data aggregated from multiple international sources.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        const riskCategories = [
+            { id: 'money_laundering', name: 'Money Laundering', icon: '💰' },
+            { id: 'terrorism_financing', name: 'Terrorism Financing', icon: '⚠️' },
+            { id: 'sanctions', name: 'Sanctions & Evasion', icon: '🚫' },
+            { id: 'transparency', name: 'Transparency', icon: '🔍' },
+            { id: 'corruption', name: 'Corruption', icon: '⚖️' },
+            { id: 'regulatory_compliance', name: 'Regulatory Compliance', icon: '📋' },
+            { id: 'political_stability', name: 'Political Stability', icon: '🏛️' },
+            { id: 'economic_risk', name: 'Economic Risk', icon: '📊' }
+        ];
+
+        function getCountryCodeFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('code');
+        }
+
+        function getRiskLevel(score) {
+            if (!score || score === 'N/A') return 'not-assessed';
+            if (score >= 7) return 'high';
+            if (score >= 4) return 'medium';
+            return 'low';
+        }
+
+        function getRiskLabel(score) {
+            if (!score || score === 'N/A') return 'Not Assessed';
+            if (score >= 7) return 'High Risk';
+            if (score >= 4) return 'Medium Risk';
+            return 'Low Risk';
+        }
+
+        async function loadCountryDetails() {
+            const countryCode = getCountryCodeFromURL();
+            
+            if (!countryCode) {
+                window.location.href = 'countries.html';
+                return;
+            }
+
+            const loading = document.getElementById('loadingIndicator');
+            const error = document.getElementById('errorMessage');
+            const content = document.getElementById('countryDetailContent');
+
+            try {
+                loading.style.display = 'block';
+                error.style.display = 'none';
+                content.style.display = 'none';
+
+                const response = await fetch(`/api/countries/${countryCode}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    displayCountryDetails(data.country, data.risk_assessment);
+                    content.style.display = 'block';
+                } else {
+                    throw new Error(data.error || 'Failed to load country details');
+                }
+            } catch (err) {
+                error.textContent = `Error: ${err.message}`;
+                error.style.display = 'block';
+                console.error('Error loading country:', err);
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function displayCountryDetails(country, riskAssessment) {
+            document.getElementById('countryName').textContent = country.name;
+            document.getElementById('countryCodes').innerHTML = `
+                <span class="code-badge">Alpha-2: ${country.alpha2}</span>
+                <span class="code-badge">Alpha-3: ${country.alpha3}</span>
+                <span class="code-badge">Numeric: ${country.numeric}</span>
+            `;
+
+            const riskContainer = document.getElementById('riskAssessment');
+            
+            if (!riskAssessment || Object.keys(riskAssessment).length === 0) {
+                riskContainer.innerHTML = `
+                    <div class="info-box">
+                        <p><strong>No risk assessment data available for this country.</strong></p>
+                        <p>Risk assessment data is being collected from various international sources 
+                        and will be updated periodically.</p>
+                    </div>
+                `;
+            } else {
+                riskContainer.innerHTML = riskCategories.map(category => {
+                    const score = riskAssessment[category.id] || 'N/A';
+                    const riskLevel = getRiskLevel(score);
+                    const riskLabel = getRiskLabel(score);
+                    
+                    return `
+                        <div class="risk-score-card">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">${category.icon}</div>
+                            <h3>${category.name}</h3>
+                            <div class="score-value">${score === 'N/A' ? 'N/A' : score + '/10'}</div>
+                            <span class="risk-badge risk-${riskLevel}">${riskLabel}</span>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadCountryDetails);
+    </script>
+</body>
+</html>

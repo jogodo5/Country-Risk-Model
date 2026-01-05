@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Factors - Country Risk Model</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🌍 Country Risk Model</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="countries.html">Countries</a>
+                <a href="risk-factors.html" class="active">Risk Factors</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" style="padding: 3rem 0;">
+        <div class="container">
+            <h1>Risk Factor Categories</h1>
+            <p class="subtitle">Comprehensive risk assessment across multiple dimensions</p>
+        </div>
+    </header>
+
+    <section class="features">
+        <div class="container">
+            <div id="riskCategoriesContainer" class="feature-grid">
+                <!-- Categories will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Country Risk Model. Data aggregated from multiple international sources.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        const categoryIcons = {
+            'money_laundering': '💰',
+            'terrorism_financing': '⚠️',
+            'sanctions': '🚫',
+            'transparency': '🔍',
+            'corruption': '⚖️',
+            'regulatory_compliance': '📋',
+            'political_stability': '🏛️',
+            'economic_risk': '📊'
+        };
+
+        async function loadRiskCategories() {
+            const container = document.getElementById('riskCategoriesContainer');
+            
+            try {
+                const response = await fetch('/api/risk-categories');
+                const data = await response.json();
+
+                if (data.success) {
+                    container.innerHTML = data.categories.map(category => `
+                        <div class="feature-card">
+                            <div class="feature-icon">${categoryIcons[category.id] || '📊'}</div>
+                            <h3>${category.name}</h3>
+                            <p>${category.description}</p>
+                            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                                <p style="font-size: 0.8rem; color: var(--secondary-color);">
+                                    <strong>Data Sources:</strong><br>
+                                    ${category.data_sources.join(', ')}
+                                </p>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading categories:', error);
+                container.innerHTML = '<p style="text-align: center; color: var(--danger-color);">Error loading risk categories</p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadRiskCategories);
+    </script>
+</body>
+</html>
